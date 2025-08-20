@@ -39,34 +39,32 @@ const techStacks = [
 
 function TechStack() {
   return (
-    <section id="tech-stack" className=" py-20">
+    <section id="tech-stack" className="bg-primary py-16 md:py-20 rounded-lg">
       <div className="container mx-auto px-4">
-        {/* Judul Bagian */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-black text-white">My Tech Stack</h2>
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-4xl font-black text-white">My Tech Stack</h2>
           <p className="text-lg text-gray-400 mt-2">Technologies I use to build powerful web applications.</p>
           <div className="w-24 h-1 bg-accent-1 mx-auto mt-4"></div>
         </div>
 
-        {/* Grid untuk Kategori Stack */}
         <div className="space-y-12">
           {techStacks.map((stack) => (
             <div key={stack.category}>
-              <h3 className="text-2xl font-bold text-accent-2 mb-6 text-center md:text-left">{stack.category}</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8">
+              <h3 className="text-xl md:text-2xl font-bold text-accent-2 mb-6 text-center md:text-left">{stack.category}</h3>
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-4 md:gap-8">
                 {stack.items.map((item) => (
                   <div
                     key={item.name}
                     className="
-      flex flex-col items-center justify-center p-4 
-      bg-secondary rounded-lg 
-      hover:ring-2 hover:ring-accent-1 
-      hover:shadow-lg hover:shadow-accent-1/50 
-      transition-all duration-300
-    "
+                      flex flex-col items-center justify-center p-4 
+                      bg-secondary rounded-lg 
+                      hover:ring-2 hover:ring-accent-1 
+                      hover:shadow-lg hover:shadow-accent-1/50 
+                      transition-all duration-300
+                    "
                   >
-                    <div className="text-5xl mb-2">{item.icon}</div>
-                    <p className="text-gray-300">{item.name}</p>
+                    <div className="text-4xl md:text-5xl mb-2">{item.icon}</div>
+                    <p className="text-gray-300 text-sm text-center">{item.name}</p>
                   </div>
                 ))}
               </div>
