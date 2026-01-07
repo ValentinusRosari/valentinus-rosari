@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const experiences = [
   {
@@ -29,7 +30,7 @@ const experiences = [
     ],
   },
   {
-    title: "UI/UX Designer",
+    title: "Junior UI/UX Designer & Fullstack Developer",
     company: "PT Jangan Lupa Pulang",
     date: "Jan 2024 - Jun 2024",
     description: [
@@ -49,41 +50,66 @@ const experiences = [
 ];
 
 function Experience() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
   return (
-    <section id="experience" className="bg-primary py-16 md:py-20">
-      <div className="container mx-auto px-4">
+    <section id="experience" className="py-24 bg-primary relative" ref={containerRef}>
+      <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-black text-white">My Experience</h2>
-          <p className="text-lg text-gray-400 mt-2">My professional journey so far.</p>
-          <div className="w-24 h-1 bg-accent-1 mx-auto mt-4"></div>
+          <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-500">
+            Experience
+          </h2>
+          <p className="text-slate-400 mt-4 text-lg">My professional journey so far.</p>
         </div>
 
-        <div className="relative max-w-3xl mx-auto">
-          <div className="absolute top-0 w-0.5 h-full bg-secondary left-5 -translate-x-1/2 md:left-1/2"></div>
+        <div className="relative max-w-4xl mx-auto">
+          {/* Animated Line */}
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-zinc-800 -translate-x-1/2 transform origin-top"></div>
+          <motion.div 
+            style={{ height: lineHeight }}
+            className="absolute left-8 md:left-1/2 top-0 w-0.5 bg-gradient-to-b from-accent-purple via-accent-cyan to-transparent -translate-x-1/2 origin-top"
+          ></motion.div>
 
           {experiences.map((exp, index) => (
-            <div key={index} className="relative mb-12">
-              <div className="absolute top-1 w-10 h-10 bg-secondary  rounded-full flex items-center justify-center left-5 -translate-x-1/2 md:left-1/2">
-                <div className="w-5 h-5 bg-accent-1 rounded-full"></div>
+            <motion.div 
+              key={index} 
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className={`relative mb-16 md:flex ${index % 2 === 0 ? "flex-row-reverse" : ""} items-center`}
+            >
+              {/* Timeline Dot */}
+              <div className="absolute left-8 md:left-1/2 -translate-x-1/2 w-4 h-4 bg-primary border-2 border-accent-purple rounded-full z-10 shadow-[0_0_10px_rgba(139,92,246,0.5)]"></div>
+
+              {/* Date (for desktop) */}
+              <div className={`hidden md:block w-1/2 px-12 ${index % 2 === 0 ? "text-right" : "text-left"}`}>
+                <span className="text-accent-cyan font-mono text-sm tracking-widest uppercase">{exp.date}</span>
               </div>
 
-              <div
-                className={
-                  `w-full md:w-1/2 p-4 rounded-lg bg-secondary/30 md:bg-primary ` +
-                  (index % 2 === 0 ? "md:mr-auto md:pr-8 md:text-right" : "md:ml-auto md:pl-8 md:text-left") +
-                  ` ml-auto md:ml-0 pl-16 md:pl-4`
-                }
-              >
-                <p className="text-accent-2 font-semibold">{exp.date}</p>
-                <h3 className="text-xl md:text-2xl font-bold text-white mt-1">{exp.title}</h3>
-                <p className="text-lg text-gray-400 mb-4">{exp.company}</p>
-                <ul className="list-disc list-inside text-gray-300 space-y-2 text-left">
-                  {exp.description.map((point, i) => (
-                    <li key={i}>{point}</li>
-                  ))}
-                </ul>
+              {/* Content Card */}
+              <div className={`w-full md:w-1/2 pl-20 md:pl-0 ${index % 2 === 0 ? "md:pr-12" : "md:pl-12"}`}>
+                 <div className="bg-zinc-900/50 p-6 rounded-2xl border border-white/5 hover:border-white/10 transition-colors group">
+                   <div className="md:hidden mb-2 text-accent-cyan font-mono text-xs tracking-widest uppercase">{exp.date}</div>
+                   <h3 className="text-xl font-bold text-white mb-1 group-hover:text-accent-purple transition-colors">{exp.title}</h3>
+                   <p className="text-slate-400 mb-4 font-medium">{exp.company}</p>
+                   <ul className="space-y-2">
+                    {exp.description.map((point, i) => (
+                      <li key={i} className="text-slate-400 text-sm leading-relaxed flex gap-2">
+                        <span className="text-accent-purple mt-1.5">•</span>
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                   </ul>
+                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

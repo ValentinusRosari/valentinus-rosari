@@ -4,9 +4,59 @@
 
 @theme {
   --font-sans: "Inter", sans-serif;
-  --color-primary: #000814;
-  --color-secondary: #001d3d;
-  --color-tertiary: #003566;
-  --color-accent-1: #ffc300;
-  --color-accent-2: #ffd60a;
+  
+  /* Premium Dark Palette */
+  --color-primary: #09090b; /* Rich Black */
+  --color-secondary: #18181b; /* Zinc 900 */
+  --color-tertiary: #27272a; /* Zinc 800 */
+  
+  /* Modern Accents - Zinc & Slate based with subtle colors */
+  --color-accent-1: #e2e8f0; /* Slate 200 (High contrast text) */
+  --color-accent-2: #94a3b8; /* Slate 400 (Muted text) */
+  --color-accent-purple: #8b5cf6; /* Violet 500 */
+  --color-accent-cyan: #06b6d4; /* Cyan 500 */
+  
+  --animate-blob: blob 7s infinite;
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-linear-to-r from-accent-purple to-accent-cyan;
+  }
+  
+  .glass-panel {
+    @apply bg-secondary/30 backdrop-blur-md border border-white/10;
+  }
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+body {
+  @apply bg-primary text-slate-400 font-sans selection:bg-accent-purple/30 selection:text-white;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-primary;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-tertiary rounded-full hover:bg-zinc-600 transition-colors;
 }
