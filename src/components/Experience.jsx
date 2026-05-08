@@ -5,7 +5,7 @@ const experiences = [
   {
     title: "Frontend Developer",
     company: "PT Jangan Lupa Pulang",
-    date: "Jul 2025 - Present",
+    date: "Jul 2024 - Present",
     description: [
       "Collaborated closely with the design team to conduct comprehensive reviews and evaluations of the UI/UX design for a Property Management System.",
       "Engineered and maintained the frontend architecture for a large-scale Property Management System using modern web technologies.",
@@ -71,14 +71,14 @@ function Experience() {
         <div className="relative max-w-4xl mx-auto">
           {/* Animated Line */}
           <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-zinc-800 -translate-x-1/2 transform origin-top"></div>
-          <motion.div 
+          <motion.div
             style={{ height: lineHeight }}
             className="absolute left-8 md:left-1/2 top-0 w-0.5 bg-gradient-to-b from-accent-purple via-accent-cyan to-transparent -translate-x-1/2 origin-top"
           ></motion.div>
 
           {experiences.map((exp, index) => (
-            <motion.div 
-              key={index} 
+            <motion.div
+              key={index}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -89,25 +89,35 @@ function Experience() {
               <div className="absolute left-8 md:left-1/2 -translate-x-1/2 w-4 h-4 bg-primary border-2 border-accent-purple rounded-full z-10 shadow-[0_0_10px_rgba(139,92,246,0.5)]"></div>
 
               {/* Date (for desktop) */}
-              <div className={`hidden md:block w-1/2 px-12 ${index % 2 === 0 ? "text-right" : "text-left"}`}>
-                <span className="text-accent-cyan font-mono text-sm tracking-widest uppercase">{exp.date}</span>
+              <div
+                className={`hidden md:block w-1/2 px-12 ${index % 2 === 0 ? "text-right" : "text-left"}`}
+              >
+                <span className="text-accent-cyan font-mono text-sm tracking-widest uppercase">
+                  {exp.date}
+                </span>
               </div>
 
               {/* Content Card */}
-              <div className={`w-full md:w-1/2 pl-20 md:pl-0 ${index % 2 === 0 ? "md:pr-12" : "md:pl-12"}`}>
-                 <div className="bg-zinc-900/50 p-6 rounded-2xl border border-white/5 hover:border-white/10 transition-colors group">
-                   <div className="md:hidden mb-2 text-accent-cyan font-mono text-xs tracking-widest uppercase">{exp.date}</div>
-                   <h3 className="text-xl font-bold text-white mb-1 group-hover:text-accent-purple transition-colors">{exp.title}</h3>
-                   <p className="text-slate-400 mb-4 font-medium">{exp.company}</p>
-                   <ul className="space-y-2">
+              <div
+                className={`w-full md:w-1/2 pl-20 md:pl-0 ${index % 2 === 0 ? "md:pr-12" : "md:pl-12"}`}
+              >
+                <div className="bg-zinc-900/50 p-6 rounded-2xl border border-white/5 hover:border-white/10 transition-colors group">
+                  <div className="md:hidden mb-2 text-accent-cyan font-mono text-xs tracking-widest uppercase">
+                    {exp.date}
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-accent-purple transition-colors">
+                    {exp.title}
+                  </h3>
+                  <p className="text-slate-400 mb-4 font-medium">{exp.company}</p>
+                  <ul className="space-y-2">
                     {exp.description.map((point, i) => (
                       <li key={i} className="text-slate-400 text-sm leading-relaxed flex gap-2">
                         <span className="text-accent-purple mt-1.5">•</span>
                         <span>{point}</span>
                       </li>
                     ))}
-                   </ul>
-                 </div>
+                  </ul>
+                </div>
               </div>
             </motion.div>
           ))}
